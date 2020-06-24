@@ -1,0 +1,6 @@
+framework module Pods_Inmost_Work_Demo_app {
+  umbrella header "Pods-Inmost_Work_Demo_app-umbrella.h"
+
+  export *
+  module * { export * }
+}

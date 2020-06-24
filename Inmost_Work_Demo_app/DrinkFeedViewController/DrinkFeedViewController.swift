@@ -32,7 +32,7 @@ class DrinkFeedViewController: UIViewController {
         
         let rightItem = UIBarButtonItem.init()
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: Constants.titleWidth, height: Constants.titleHeight))
-        titleLabel.font = UIFont(name: "Roboto-Normal", size: 28)
+        titleLabel.font = UIFont.robotoFont28
         let leftTitleItem = UIBarButtonItem.init(customView: titleLabel)
     
         rightItem.tintColor = .black
@@ -67,7 +67,7 @@ extension DrinkFeedViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DrinkFeedCellViewModel") as? DrinkFeedViewCell else { return UITableViewCell() }
-        print("table view sections is \(viewModel.dataSource)")
+        print("table view sections is \(viewModel.dataSource[indexPath.row].title)")
         let feed = viewModel.dataSource[indexPath.row]
         cell.fill(model: DrinkFeedCellViewModel(model: feed))
         return cell

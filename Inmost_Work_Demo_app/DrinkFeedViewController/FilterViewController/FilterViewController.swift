@@ -7,3 +7,17 @@
 //
 
 import Foundation
+import UIKit
+
+class FilterViewController: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var acceptButton: ApplyButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+
+}

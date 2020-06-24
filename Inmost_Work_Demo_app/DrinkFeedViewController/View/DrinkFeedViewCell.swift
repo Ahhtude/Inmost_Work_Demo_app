@@ -23,7 +23,7 @@ class DrinkFeedViewCell : UITableViewCell {
     }
     
     override func awakeFromNib() {
-        self.drinkName.font = UIFont(name: "Roboto-Normal", size: 19)
+        self.drinkName.font = UIFont.robotoFont19
         self.drinkName.textColor = UIColor.defaultTextColor
     }
     

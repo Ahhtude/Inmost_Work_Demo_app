@@ -26,23 +26,30 @@ class DrinkFeedViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureTableView()
+        bindToViewModel()
     }
     
     private func configureNavigationBar(){
-        
+        self.navigationController?.navigationBar.tintColor = .black
         let rightItem = UIBarButtonItem.init()
+        
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: Constants.titleWidth, height: Constants.titleHeight))
         titleLabel.font = UIFont.robotoFont28
+        titleLabel.textAlignment = .left
         let leftTitleItem = UIBarButtonItem.init(customView: titleLabel)
     
         rightItem.tintColor = .black
         rightItem.image = UIImage(named: "filterNavigationButton")
+        
+        rightItem.target = self
+        rightItem.action = #selector(filterViewController)
+        
+        
         titleLabel.textAlignment = .left
         titleLabel.text = Constants.titleText
         
         navigationItem.setRightBarButton(rightItem, animated: true)
         navigationItem.setLeftBarButton(leftTitleItem, animated: true)
-        
     }
     
     private func configureTableView() {
@@ -53,15 +60,36 @@ class DrinkFeedViewController: UIViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .reloadTableView, object: nil)
-        
+        //NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .reloadTableView, object: nil)
     }
+    
+    private func bindToViewModel() {
+        self.viewModel.didUpdate = { [weak self] _ in
+            self?.viewModelDidUpdate()
+        }
+        self.viewModel.didError = { [weak self] error in
+            self?.viewModelDidError(error: error)
+        }
+        reloadCoctailsData()
+    }
+    
+    private func viewModelDidUpdate() {
+        self.tableView.reloadData()
+    }
+    
+    private func viewModelDidError(error: NetworkError) {
+        UIAlertView(title: "Error", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK").show()
+    }
+    
+    private func reloadCoctailsData() {
+        self.viewModel.reloadData()
+    }
+    
+    
 }
 
 extension DrinkFeedViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return viewModel.dataSource.count
     }
     
@@ -74,16 +102,20 @@ extension DrinkFeedViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let feed = viewModel.dataSource[indexPath.row]
+        //let feed = viewModel.dataSource[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
     }
     
-    @objc func updateTableView(_ notification: Notification){
-        self.tableView.reloadData()
+//    @objc func updateTableView(_ notification: Notification){
+//        self.tableView.reloadData()
+//    }
+    
+    @objc func filterViewController(sender: UIBarButtonItem) {
+        let st = UIStoryboard(name: "FilterViewController", bundle: nil)
+        let controller = st.instantiateViewController(withIdentifier: "FilterViewController")
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
-
-

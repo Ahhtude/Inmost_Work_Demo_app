@@ -9,11 +9,10 @@
 /* Begin PBXBuildFile section */
 		242693F324A1FE8F007CD6DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242693F224A1FE8F007CD6DD /* SceneDelegate.swift */; };
 		242693F524A1FE8F007CD6DD /* DrinkFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242693F424A1FE8F007CD6DD /* DrinkFeedViewController.swift */; };
-		242693F824A1FE8F007CD6DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 242693F624A1FE8F007CD6DD /* Main.storyboard */; };
+		242693F824A1FE8F007CD6DD /* DrinkFeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 242693F624A1FE8F007CD6DD /* DrinkFeedViewController.storyboard */; };
 		242693FA24A1FE90007CD6DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 242693F924A1FE90007CD6DD /* Assets.xcassets */; };
 		242693FD24A1FE90007CD6DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 242693FB24A1FE90007CD6DD /* LaunchScreen.storyboard */; };
 		2426940924A1FF8D007CD6DD /* DrinkFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426940824A1FF8D007CD6DD /* DrinkFeedViewModel.swift */; };
-		2426940B24A1FFA2007CD6DD /* DrinkFeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426940A24A1FFA2007CD6DD /* DrinkFeedCoordinator.swift */; };
 		2426940E24A20EBB007CD6DD /* DrinkFeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426940D24A20EBB007CD6DD /* DrinkFeedViewCell.swift */; };
 		2426941024A20ECC007CD6DD /* DrinkFeedViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2426940F24A20ECC007CD6DD /* DrinkFeedViewCell.xib */; };
 		2426941324A218C2007CD6DD /* DrinkFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426941224A218C2007CD6DD /* DrinkFeed.swift */; };
@@ -36,12 +35,11 @@
 		242693F024A1FE8F007CD6DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		242693F224A1FE8F007CD6DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		242693F424A1FE8F007CD6DD /* DrinkFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFeedViewController.swift; sourceTree = "<group>"; };
-		242693F724A1FE8F007CD6DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		242693F724A1FE8F007CD6DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DrinkFeedViewController.storyboard; sourceTree = "<group>"; };
 		242693F924A1FE90007CD6DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		242693FC24A1FE90007CD6DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		242693FE24A1FE90007CD6DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2426940824A1FF8D007CD6DD /* DrinkFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFeedViewModel.swift; sourceTree = "<group>"; };
-		2426940A24A1FFA2007CD6DD /* DrinkFeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFeedCoordinator.swift; sourceTree = "<group>"; };
 		2426940D24A20EBB007CD6DD /* DrinkFeedViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFeedViewCell.swift; sourceTree = "<group>"; };
 		2426940F24A20ECC007CD6DD /* DrinkFeedViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DrinkFeedViewCell.xib; sourceTree = "<group>"; };
 		2426941224A218C2007CD6DD /* DrinkFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkFeed.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 				2426940424A1FE95007CD6DD /* NetworkService */,
 				242693F024A1FE8F007CD6DD /* AppDelegate.swift */,
 				242693F224A1FE8F007CD6DD /* SceneDelegate.swift */,
-				242693F624A1FE8F007CD6DD /* Main.storyboard */,
 				242693F924A1FE90007CD6DD /* Assets.xcassets */,
 				242693FB24A1FE90007CD6DD /* LaunchScreen.storyboard */,
 				242693FE24A1FE90007CD6DD /* Info.plist */,
@@ -124,7 +121,7 @@
 				2426940C24A20EA9007CD6DD /* View */,
 				2426940824A1FF8D007CD6DD /* DrinkFeedViewModel.swift */,
 				242693F424A1FE8F007CD6DD /* DrinkFeedViewController.swift */,
-				2426940A24A1FFA2007CD6DD /* DrinkFeedCoordinator.swift */,
+				242693F624A1FE8F007CD6DD /* DrinkFeedViewController.storyboard */,
 			);
 			path = DrinkFeedViewController;
 			sourceTree = "<group>";
@@ -273,7 +270,7 @@
 				2426941024A20ECC007CD6DD /* DrinkFeedViewCell.xib in Resources */,
 				2426942424A3A82C007CD6DD /* Roboto-Normal.ttf in Resources */,
 				242693FA24A1FE90007CD6DD /* Assets.xcassets in Resources */,
-				242693F824A1FE8F007CD6DD /* Main.storyboard in Resources */,
+				242693F824A1FE8F007CD6DD /* DrinkFeedViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,19 +337,18 @@
 				242693F324A1FE8F007CD6DD /* SceneDelegate.swift in Sources */,
 				2426940924A1FF8D007CD6DD /* DrinkFeedViewModel.swift in Sources */,
 				2426942E24A3AB42007CD6DD /* ApplyButton.swift in Sources */,
-				2426940B24A1FFA2007CD6DD /* DrinkFeedCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		242693F624A1FE8F007CD6DD /* Main.storyboard */ = {
+		242693F624A1FE8F007CD6DD /* DrinkFeedViewController.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				242693F724A1FE8F007CD6DD /* Base */,
 			);
-			name = Main.storyboard;
+			name = DrinkFeedViewController.storyboard;
 			sourceTree = "<group>";
 		};
 		242693FB24A1FE90007CD6DD /* LaunchScreen.storyboard */ = {

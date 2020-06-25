@@ -12,8 +12,6 @@ struct TableViewSection<Model> {
     var header: String?
     var items: [Model]
     
-    private var uuid = UUID()
-    
     init(header: String? = nil, items: [Model]) {
         self.header = header
         self.items = items

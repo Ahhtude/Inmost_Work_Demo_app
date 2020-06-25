@@ -16,7 +16,17 @@ class FilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureNavigationBar()
+        print("title label is \(self.acceptButton.titleLabel)")
+    }
+    
+    private func configureNavigationBar() {
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 69, height: 28))
+        titleLabel.textAlignment = .left
+        titleLabel.textColor = .black
+        titleLabel.font = UIFont.robotoFont28
+        titleLabel.sizeToFit()
+        let leftTitleItem = UIBarButtonItem.init(customView: titleLabel)
     }
     
 

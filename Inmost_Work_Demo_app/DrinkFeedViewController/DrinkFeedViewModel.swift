@@ -15,23 +15,45 @@ class DrinkFeedViewModel {
     //var dataSource: [TableViewSection<DrinkFeed>] = []
     var dataSource: [DrinkFeed] = []
     
+    var didError: ((NetworkError) -> Void)?
+    var didUpdate: ((DrinkFeedViewModel) -> Void)?
+    
+    
     init(networkService: CoctailsListDataManagerProtocol) {
         self.networkService = networkService
-        getCoctails()
     }
     
-    private func getCoctails(){
-        networkService.getCoctails(resultHandler: { data in
-            print("data is \(data.count)")
-            //self.dataSource = [TableViewSection.init(items: data)]
-            self.dataSource = data
-            NotificationCenter.default.post(name: .reloadTableView, object: nil)
-        }, errorHandler: { error in
-            print("FAILED")
-        })
+    private(set) var isUpdating: Bool = false {
+        didSet { self.didUpdate?(self) }
     }
+    
+    func reloadData() {
+           self.isUpdating = true
+           self.networkService.getCoctails(resultHandler: { [unowned self] coctails in
+                    self.dataSource = coctails
+                   self.isUpdating = false
+               },
+                   errorHandler: { [unowned self] error in
+                   self.didError?(error!)
+                   self.isUpdating = false
+               }
+           )
+       }
+    
+    
+    //Network request with NotificationCenter
+//    private func getCoctails() {
+//        networkService.getCoctails(resultHandler: { data in
+            //self.dataSource = [TableViewSection.init(items: data)]
+//            self.dataSource = data
+            //NotificationCenter.default.post(name: .reloadTableView, object: nil)
+//        }, errorHandler: { error in
+//            print("FAILED")
+//        })
+//    }
+    
 }
 
-extension Notification.Name {
-    static let reloadTableView = Notification.Name("reloadTableView")
-}
+//extension Notification.Name {
+    //static let reloadTableView = Notification.Name("reloadTableView")
+//}

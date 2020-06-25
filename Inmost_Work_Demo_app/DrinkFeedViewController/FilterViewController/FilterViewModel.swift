@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+class FilterViewModel {
+    var dataSource: [String] = []
+    
+    
+}

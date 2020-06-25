@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
  fileprivate struct Constants {
-    static let baseURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary%20Drink"
+    static let baseURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary Drink"
 //    static let test = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary Drink"
 //    static let baseURL2 = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary&pageSize=10&page=%i"
 
@@ -51,8 +51,8 @@ class Page<Model: Decodable>: Decodable {
 class CoctailsListDataManager: NSObject, CoctailsListDataManagerProtocol {
     
     func getCoctails(resultHandler: @escaping ([DrinkFeed]) -> (), errorHandler: @escaping (NetworkError?) -> ()) {
-        //let path = String(format: )
-        guard let url = URL(string: Constants.baseURL) else { return }
+        let path = Constants.baseURL.replacingOccurrences(of: " ", with: "%20")
+        guard let url = URL(string: path) else { return }
         
         Alamofire.request(url).responseJSON { response in
             var responseData: Page<DrinkFeed>?

@@ -9,7 +9,8 @@
 import Foundation
 
 class FilterViewModel {
-    var dataSource: [String] = []
+    var dataSource: [String] = ["Ordinary Drink","Cocktail","Milk / Float / Shake","Other/Unknown","Cocoa","Shot","Coffee / Tea","Homemade Liqueur","Beer","Punch / Party Drink"]
     
+    var selectedFilters: Set<String> = []
     
 }

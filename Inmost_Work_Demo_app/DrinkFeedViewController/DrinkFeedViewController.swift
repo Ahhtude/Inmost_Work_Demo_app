@@ -21,6 +21,10 @@ class DrinkFeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let viewModel = DrinkFeedViewModel(networkService: CoctailsListDataManager())
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        <#code#>
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

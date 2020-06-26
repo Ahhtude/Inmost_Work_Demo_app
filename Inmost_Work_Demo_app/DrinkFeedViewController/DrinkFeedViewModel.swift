@@ -8,17 +8,21 @@
 
 import Foundation
 
+fileprivate struct Constants{
+    static var defaurlNetworkRequestKey = "Ordinary Drink"
+}
+
 
 class DrinkFeedViewModel {
     private let networkService : CoctailsListDataManagerProtocol
-    
-    //var dataSource: [TableViewSection<DrinkFeed>] = []
-    var dataSource: [DrinkFeed] = []
+        
+    var tableViewSections: [TableViewSection<DrinkFeed>] = []
+    var coctailsFilter: Set<String> = []
     
     var didError: ((NetworkError) -> Void)?
     var didUpdate: ((DrinkFeedViewModel) -> Void)?
     
-    var coctailsFilter: Set<String> = []
+    
     
     
     init(networkService: CoctailsListDataManagerProtocol) {
@@ -30,27 +34,24 @@ class DrinkFeedViewModel {
     }
     
     func reloadData() {
+        self.tableViewSections = []
+        
         self.isUpdating = true
+        
         if !coctailsFilter.isEmpty {
-            for keys in coctailsFilter {
-                self.getData(keys)
-            }
+            coctailsFilter.map({[unowned self] key in self.getData(key)})
         } else {
             self.getData(nil)
         }
-       }
+    }
     
-    private func getData(_ key: String?){
-        print("keys is \(key)")
-        self.networkService.getCoctails(filter: key ,resultHandler: {[unowned self] coctails in
-            self.dataSource = []
-            coctails.map({[unowned self] element in
-                self.dataSource.append(element)
-            })
-            //self.dataSource = coctails
-                   self.isUpdating = false
-               },
-                   errorHandler: { [unowned self] error in
+    private func getData(_ key: String?) {
+        let forceKey = key ?? Constants.defaurlNetworkRequestKey
+        
+        self.networkService.getCoctails(filter: forceKey ,resultHandler: {[unowned self] coctails in
+            self.tableViewSections.append(TableViewSection.init(header: forceKey, items: coctails))
+            self.isUpdating = false
+            }, errorHandler: { [unowned self] error in
                    self.didError?(error!)
                    self.isUpdating = false
                }

@@ -13,6 +13,7 @@ fileprivate struct Constants {
     static let titleHeight = 28
     static let titleWidth = 69
     static let rowHeight: CGFloat = .init(100.0)
+    static let sectionHeaderX: CGFloat = .init(20)
     static let titleText = "Coctails"
 }
 
@@ -25,7 +26,6 @@ class DrinkFeedViewController: UIViewController {
     unowned var filterController: FilterViewController {
         let vc =  UIStoryboard(name: "FilterViewController", bundle: nil)
         .instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
-        vc.viewModel = FilterViewModel()
         return vc
     }
     
@@ -34,7 +34,6 @@ class DrinkFeedViewController: UIViewController {
         configureNavigationBar()
         configureTableView()
         bindToViewModel()
-        
     }
     
     override func awakeFromNib() {
@@ -72,6 +71,7 @@ class DrinkFeedViewController: UIViewController {
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
         //NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .reloadTableView, object: nil)
     }
     
@@ -86,16 +86,14 @@ class DrinkFeedViewController: UIViewController {
     }
     
     private func viewModelDidUpdate() {
-        
         self.tableView.reloadData()
     }
     
     private func viewModelDidError(error: NetworkError) {
-       //UIAlertView(title: "Error", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK").show()
+       UIAlertView(title: "Error", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK").show()
     }
     
     func reloadCoctailsData() {
-//        print("FILTERS \( self.filterController.viewModel.selectedFilters.count)")
         self.viewModel.reloadData()
     }
     
@@ -104,22 +102,33 @@ class DrinkFeedViewController: UIViewController {
 
 extension DrinkFeedViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.dataSource.count
+        return viewModel.tableViewSections[section].items.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.tableViewSections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DrinkFeedCellViewModel") as? DrinkFeedViewCell else { return UITableViewCell() }
-        let feed = viewModel.dataSource[indexPath.row]
+        let feed = viewModel.tableViewSections[indexPath.section].items[indexPath.row]
         cell.fill(model: DrinkFeedCellViewModel(model: feed))
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let feed = viewModel.dataSource[indexPath.row]
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.tableViewSections[section].items.count
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: CGFloat(Constants.titleHeight)))
+        let label = UILabel(frame: CGRect(x: Constants.sectionHeaderX, y: 0, width: self.view.frame.width, height: CGFloat(Constants.titleHeight)))
+        
+        label.font = UIFont.robotoFont19
+        label.textColor = UIColor.defaultTextColor
+        label.text = viewModel.tableViewSections[section].header
+        view.addSubview(label)
+        return view
     }
     
 //    @objc func updateTableView(_ notification: Notification){

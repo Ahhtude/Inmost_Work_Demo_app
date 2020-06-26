@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+fileprivate struct Constants {
+    static var rowHeight: CGFloat = .init(80.0)
+}
+
 class FilterViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -37,7 +41,7 @@ class FilterViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.rowHeight = 80
+        tableView.rowHeight = Constants.rowHeight
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -72,12 +76,8 @@ extension FilterViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func applyFilters (sender : UIButton) {
-        self.acceptButton.isApply = true
-        print("FILTERS \(viewModel.selectedFilters.count)")
         mainVC.viewModel.coctailsFilter = viewModel.selectedFilters
         mainVC.reloadCoctailsData()
-
         self.navigationController?.popViewController(animated: true)
-
     }
 }

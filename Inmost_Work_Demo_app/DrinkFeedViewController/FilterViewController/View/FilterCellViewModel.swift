@@ -9,6 +9,7 @@
 import Foundation
 
 class FilterCellViewModel {
+    
     var title: String
     
     var isApply: Bool = false

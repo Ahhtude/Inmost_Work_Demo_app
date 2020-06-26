@@ -8,12 +8,13 @@
 
 import Foundation
 
-struct TableViewSection<Model> {
+struct TableViewSection<T> {
+    
     var header: String?
     
-    var items: [Model]
+    var items: [T]
     
-    init(header: String? = nil, items: [Model]) {
+    init(header: String? = nil, items: [T]) {
         self.header = header
         self.items = items
     }

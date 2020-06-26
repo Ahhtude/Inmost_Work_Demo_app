@@ -31,10 +31,8 @@ class DrinkFeedViewCell : UITableViewCell {
         drinkImage.image = nil
         drinkName.text = ""
     }
-    
 
-    
-    private func setUpFunctions(){
+    private func setUpFunctions() {
         self.drinkName.text = self.viewModel.title
         
         guard let imageURL = viewModel.imageURL else {

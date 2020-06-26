@@ -10,15 +10,6 @@ import Foundation
 import UIKit
 
 class ApplyButton : UIButton {
-    
-    var isApply: Bool = false {
-        didSet{
-            if isApply {
-                showSelection()
-            }
-        }
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.borderColor = UIColor.black.cgColor
@@ -29,15 +20,4 @@ class ApplyButton : UIButton {
         titleLabel?.textColor = .white
         titleLabel?.text = "APPLY"
     }
-    
-    func showSelection() {
-        UIView.animate(withDuration: 0.3, animations: {[unowned self] in
-            self.backgroundColor = UIColor.white
-            }, completion: {[unowned self] _ in
-                UIView.animate(withDuration: 0.3 , animations: {[unowned self] in
-                    self.backgroundColor = UIColor.black
-                })
-            })
-    }
-    
 }

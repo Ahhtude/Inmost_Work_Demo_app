@@ -28,7 +28,6 @@ class FilterCell: UITableViewCell {
         filterTitle.font = UIFont.robotoFont19
         filterTitle.textColor = UIColor.defaultTextColor
         selectionStyle = .none
-        //isApply = false
     }
     
     func fill(model: FilterCellViewModel){

@@ -99,7 +99,7 @@
 		242693EF24A1FE8F007CD6DD /* Inmost_Work_Demo_app */ = {
 			isa = PBXGroup;
 			children = (
-				2426941F24A3A617007CD6DD /* Resurse */,
+				2426941F24A3A617007CD6DD /* Resource */,
 				2426941B24A3A19F007CD6DD /* Extensions */,
 				2426941824A39A6E007CD6DD /* Components */,
 				2426941124A218AD007CD6DD /* Model */,
@@ -171,12 +171,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		2426941F24A3A617007CD6DD /* Resurse */ = {
+		2426941F24A3A617007CD6DD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				2426941E24A3A609007CD6DD /* Roboto-Normal.ttf */,
 			);
-			path = Resurse;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		2426942524A3A8D4007CD6DD /* FilterViewController */ = {

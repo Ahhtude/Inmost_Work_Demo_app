@@ -13,7 +13,7 @@ fileprivate struct Constants {
     static var rowHeight: CGFloat = .init(80.0)
 }
 
-class FilterViewController: UIViewController {
+class FilterViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var acceptButton: ApplyButton!
@@ -26,18 +26,8 @@ class FilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
         configureTableView()
         acceptButton.addTarget(self, action: #selector(applyFilters), for: .touchUpInside)
-    }
-    
-    private func configureNavigationBar() {
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 69, height: 28))
-        titleLabel.textAlignment = .left
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont.robotoFont28
-        titleLabel.sizeToFit()
-        let leftTitleItem = UIBarButtonItem.init(customView: titleLabel)
     }
     
     private func configureTableView() {
@@ -79,4 +69,5 @@ extension FilterViewController : UITableViewDelegate, UITableViewDataSource {
         mainVC.reloadCoctailsData()
         self.navigationController?.popViewController(animated: true)
     }
+    
 }

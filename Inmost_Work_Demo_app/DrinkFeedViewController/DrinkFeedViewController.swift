@@ -15,9 +15,11 @@ fileprivate struct Constants {
     static let rowHeight: CGFloat = .init(100.0)
     static let sectionHeaderX: CGFloat = .init(20)
     static let titleText = "Coctails"
+    static var backItemImage: UIImage = UIImage(named: "back_button_image")!
+    static var backItemTitle: String  = "FILTER"
 }
 
-class DrinkFeedViewController: UIViewController {
+class DrinkFeedViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -58,9 +60,17 @@ class DrinkFeedViewController: UIViewController {
         
         titleLabel.textAlignment = .left
         titleLabel.text = Constants.titleText
-        
+    
         navigationItem.setRightBarButton(rightItem, animated: true)
         navigationItem.setLeftBarButton(leftTitleItem, animated: true)
+        
+        let backImage = Constants.backItemImage
+
+        self.navigationController?.navigationBar.backIndicatorImage = backImage
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: Constants.backItemTitle, style: .plain, target: nil, action: #selector(UINavigationController.popViewController(animated:)))
+        
     }
     
     private func configureTableView() {

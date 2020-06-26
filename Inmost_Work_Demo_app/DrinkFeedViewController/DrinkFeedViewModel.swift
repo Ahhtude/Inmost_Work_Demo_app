@@ -22,9 +22,6 @@ class DrinkFeedViewModel {
     var didError: ((NetworkError) -> Void)?
     var didUpdate: ((DrinkFeedViewModel) -> Void)?
     
-    
-    
-    
     init(networkService: CoctailsListDataManagerProtocol) {
         self.networkService = networkService
     }

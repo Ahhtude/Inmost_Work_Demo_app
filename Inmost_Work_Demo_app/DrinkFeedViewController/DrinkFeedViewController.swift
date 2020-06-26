@@ -57,7 +57,6 @@ class DrinkFeedViewController: UIViewController, UIGestureRecognizerDelegate {
         rightItem.target = self
         rightItem.action = #selector(filterViewController)
         
-        
         titleLabel.textAlignment = .left
         titleLabel.text = Constants.titleText
     
@@ -70,7 +69,6 @@ class DrinkFeedViewController: UIViewController, UIGestureRecognizerDelegate {
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: Constants.backItemTitle, style: .plain, target: nil, action: #selector(UINavigationController.popViewController(animated:)))
-        
     }
     
     private func configureTableView() {
@@ -106,8 +104,6 @@ class DrinkFeedViewController: UIViewController, UIGestureRecognizerDelegate {
     func reloadCoctailsData() {
         self.viewModel.reloadData()
     }
-    
-    
 }
 
 extension DrinkFeedViewController : UITableViewDelegate, UITableViewDataSource {

@@ -18,7 +18,7 @@ class FilterViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var acceptButton: ApplyButton!
     
-    var viewModel : FilterViewModel = .init()
+    var viewModel : FilterViewModel = .init(networkService: CoctailsListDataManager())
     
     private unowned var mainVC: DrinkFeedViewController {
         return navigationController!.rootVC as! DrinkFeedViewController
@@ -28,6 +28,7 @@ class FilterViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         configureTableView()
         acceptButton.addTarget(self, action: #selector(applyFilters), for: .touchUpInside)
+        bindToViewModel()
     }
     
     private func configureTableView() {
@@ -38,7 +39,27 @@ class FilterViewController: UIViewController, UIGestureRecognizerDelegate {
         tableView?.register(UINib(nibName: "FilterCell", bundle: nil),
         forCellReuseIdentifier: "FilterCellViewModel")
     }
+    private func bindToViewModel() {
+        self.viewModel.didUpdate = { [weak self] _ in
+            self?.viewModelDidUpdate()
+        }
+        self.viewModel.didError = { [weak self] error in
+            self?.viewModelDidError(error: error)
+        }
+        reloadFilterData()
+    }
     
+    private func viewModelDidUpdate() {
+        self.tableView.reloadData()
+    }
+    
+    func reloadFilterData() {
+        self.viewModel.reloadData()
+    }
+    
+    private func viewModelDidError(error: NetworkError) {
+       UIAlertView(title: "Error", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK").show()
+    }
 }
 
 extension FilterViewController : UITableViewDelegate, UITableViewDataSource {

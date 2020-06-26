@@ -11,11 +11,13 @@ import Alamofire
 
  fileprivate struct Constants {
     static let baseURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="
+    static let filtersURL = "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list"
 
 }
 
 protocol CoctailsListDataManagerProtocol {
     func getCoctails(filter: String, resultHandler: @escaping ([DrinkFeed]) -> (), errorHandler: @escaping (NetworkError?) -> ())
+    func getFilters(resultHandler: @escaping ([Filters]) -> (), errorHandler: @escaping (NetworkError?) -> ())
 }
 
 enum NetworkError: Error {
@@ -65,6 +67,28 @@ class CoctailsListDataManager: NSObject, CoctailsListDataManagerProtocol {
                 }
             }
             
+            if responseData != nil {
+                resultHandler(responseData?.items ?? [])
+            } else {
+                errorHandler(error)
+            }
+        }
+    }
+    
+    func getFilters(resultHandler: @escaping ([Filters]) -> (), errorHandler: @escaping (NetworkError?) -> ()) {
+        let path = Constants.filtersURL.replacingOccurrences(of: " ", with: "%20")
+        guard let url = URL(string: path) else { return }
+        Alamofire.request(url).responseJSON { response in
+            var responseData: Page<Filters>?
+            var error: NetworkError?
+            if response.response?.statusCode == HttpStatusCode.successful, let data = response.data {
+                let decoder = JSONDecoder()
+                do {
+                    responseData =  try decoder.decode(Page<Filters>.self, from: data)
+                } catch _ {
+                    error = NetworkError.server(response.response?.statusCode ?? 0, "Can not decodable response", response.request?.url)
+                }
+            }
             if responseData != nil {
                 resultHandler(responseData?.items ?? [])
             } else {

@@ -31,6 +31,7 @@
 		2426943424A49CD0007CD6DD /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2426943324A49CD0007CD6DD /* FilterCell.xib */; };
 		2426943624A512CB007CD6DD /* UINavigationController + Extestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426943524A512CB007CD6DD /* UINavigationController + Extestions.swift */; };
 		2426943824A5ABCB007CD6DD /* FilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426943724A5ABCB007CD6DD /* FilterCellViewModel.swift */; };
+		2426943A24A624FC007CD6DD /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426943924A624FC007CD6DD /* Filters.swift */; };
 		8DF37A4FCCB4AA3EC13F36CA /* Pods_Inmost_Work_Demo_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B7D1A02FB79C0AC7D79482 /* Pods_Inmost_Work_Demo_app.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		2426943324A49CD0007CD6DD /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		2426943524A512CB007CD6DD /* UINavigationController + Extestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Extestions.swift"; sourceTree = "<group>"; };
 		2426943724A5ABCB007CD6DD /* FilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCellViewModel.swift; sourceTree = "<group>"; };
+		2426943924A624FC007CD6DD /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		61B7D1A02FB79C0AC7D79482 /* Pods_Inmost_Work_Demo_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Inmost_Work_Demo_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E086014A88E991BFEEEAD5 /* Pods-Inmost_Work_Demo_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inmost_Work_Demo_app.debug.xcconfig"; path = "Target Support Files/Pods-Inmost_Work_Demo_app/Pods-Inmost_Work_Demo_app.debug.xcconfig"; sourceTree = "<group>"; };
 		BE5858AE2CA54CC436B47B18 /* Pods-Inmost_Work_Demo_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inmost_Work_Demo_app.release.xcconfig"; path = "Target Support Files/Pods-Inmost_Work_Demo_app/Pods-Inmost_Work_Demo_app.release.xcconfig"; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				2426941224A218C2007CD6DD /* DrinkFeed.swift */,
+				2426943924A624FC007CD6DD /* Filters.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				2426941724A36ABE007CD6DD /* DrinkFeedCellViewModel.swift in Sources */,
 				2426943024A3ABE5007CD6DD /* UIFont + Extension.swift in Sources */,
 				242693F324A1FE8F007CD6DD /* SceneDelegate.swift in Sources */,
+				2426943A24A624FC007CD6DD /* Filters.swift in Sources */,
 				2426940924A1FF8D007CD6DD /* DrinkFeedViewModel.swift in Sources */,
 				2426942E24A3AB42007CD6DD /* ApplyButton.swift in Sources */,
 			);

@@ -9,8 +9,39 @@
 import Foundation
 
 class FilterViewModel {
-    var dataSource: [String] = ["Ordinary Drink","Cocktail","Milk / Float / Shake","Other/Unknown","Cocoa","Shot","Coffee / Tea","Homemade Liqueur","Beer","Punch / Party Drink"]
+    private let networkService : CoctailsListDataManagerProtocol
+    
+    var dataSource: [String] = []
     
     var selectedFilters: Set<String> = []
     
+    var didError: ((NetworkError) -> Void)?
+    var didUpdate: ((FilterViewModel) -> Void)?
+    
+    private(set) var isUpdating: Bool = false {
+        didSet { self.didUpdate?(self) }
+    }
+    
+    init(networkService: CoctailsListDataManagerProtocol) {
+        self.networkService = networkService
+        networkService.getFilters(resultHandler: {resp in
+        }, errorHandler: {_ in })
+    }
+    
+    func reloadData() {
+        self.dataSource = []
+        self.isUpdating = true
+        
+        self.networkService.getFilters(resultHandler: {[unowned self] filters in
+            filters.map({[unowned self] key in
+                self.dataSource.append(key.title)
+            })
+            
+            self.isUpdating = false
+            }, errorHandler: { [unowned self] error in
+                   self.didError?(error!)
+                   self.isUpdating = false
+               }
+           )
+    }
 }

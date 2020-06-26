@@ -20,6 +20,9 @@ class FilterViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var viewModel : FilterViewModel = .init(networkService: CoctailsListDataManager())
     
+    var selectindex : Int?
+    var selectedindex : NSMutableArray = NSMutableArray()
+    
     private unowned var mainVC: DrinkFeedViewController {
         return navigationController!.rootVC as! DrinkFeedViewController
     }
@@ -64,12 +67,12 @@ class FilterViewController: UIViewController, UIGestureRecognizerDelegate {
 
 extension FilterViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("yy COUNT \(viewModel.dataSource.count)")
         return viewModel.dataSource.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? FilterCell else {return}
-        
         cell.isApply = !cell.viewModel.isApply
         
         if cell.viewModel.isApply {
@@ -80,10 +83,19 @@ extension FilterViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCellViewModel") as? FilterCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCellViewModel",for: indexPath) as? FilterCell else { return UITableViewCell() }
         cell.fill(model: FilterCellViewModel(model: viewModel.dataSource[indexPath.row]))
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        guard let cell = tableView.cellForRow(at: indexPath) as? FilterCell else {return}
+//        if cell.isApply{
+//            print("xxxxxxxxxxx")
+//        } else {
+//             print("yyyyyyyyyyy")
+//        }
+//    }
     
     @objc func applyFilters (sender : UIButton) {
         mainVC.viewModel.coctailsFilter = viewModel.selectedFilters

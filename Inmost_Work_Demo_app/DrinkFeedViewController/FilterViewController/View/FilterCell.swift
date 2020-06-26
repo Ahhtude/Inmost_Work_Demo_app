@@ -33,12 +33,14 @@ class FilterCell: UITableViewCell {
     func fill(model: FilterCellViewModel){
         self.viewModel = model
         filterTitle.text = model.title
+        applyImage.image = UIImage(named: "apllyFilter")
         isApply = model.isApply
     }
     
     override func prepareForReuse() {
-        applyImage.image = nil
+        super.prepareForReuse()
         filterTitle.text = ""
+        applyImage.image = nil
     }
     
     func applyAction(state: Bool) {

@@ -40,7 +40,7 @@ class DrinkFeedViewController: UIViewController {
         //self.reloadCoctailsData()
     }
     
-    private func configureNavigationBar(){
+    private func configureNavigationBar() {
         self.navigationController?.navigationBar.tintColor = .black
         let rightItem = UIBarButtonItem.init()
         

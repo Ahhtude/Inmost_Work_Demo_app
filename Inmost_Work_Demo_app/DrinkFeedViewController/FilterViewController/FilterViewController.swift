@@ -47,7 +47,6 @@ class FilterViewController: UIViewController {
         
         tableView?.register(UINib(nibName: "FilterCell", bundle: nil),
         forCellReuseIdentifier: "FilterCellViewModel")
-    
     }
     
 }

@@ -10,14 +10,14 @@ import Foundation
 import Alamofire
 
  fileprivate struct Constants {
-    static let baseURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary Drink"
+    static let baseURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="
 //    static let test = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary Drink"
 //    static let baseURL2 = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary&pageSize=10&page=%i"
 
 }
 
 protocol CoctailsListDataManagerProtocol {
-    func getCoctails(resultHandler: @escaping ([DrinkFeed]) -> (), errorHandler: @escaping (NetworkError?) -> ())
+    func getCoctails(filter: String?, resultHandler: @escaping ([DrinkFeed]) -> (), errorHandler: @escaping (NetworkError?) -> ())
 }
 
 enum NetworkError: Error {
@@ -50,8 +50,9 @@ class Page<Model: Decodable>: Decodable {
 
 class CoctailsListDataManager: NSObject, CoctailsListDataManagerProtocol {
     
-    func getCoctails(resultHandler: @escaping ([DrinkFeed]) -> (), errorHandler: @escaping (NetworkError?) -> ()) {
-        let path = Constants.baseURL.replacingOccurrences(of: " ", with: "%20")
+    func getCoctails(filter: String?, resultHandler: @escaping ([DrinkFeed]) -> (), errorHandler: @escaping (NetworkError?) -> ()) {
+        let filter = filter ?? "Ordinary Drink"
+        let path = (Constants.baseURL + filter).replacingOccurrences(of: " ", with: "%20")
         guard let url = URL(string: path) else { return }
         
         Alamofire.request(url).responseJSON { response in

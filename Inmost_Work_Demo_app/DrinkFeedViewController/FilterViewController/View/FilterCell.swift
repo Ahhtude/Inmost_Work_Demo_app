@@ -13,13 +13,14 @@ class FilterCell: UITableViewCell {
     @IBOutlet weak var applyImage: UIImageView!
     @IBOutlet weak var filterTitle: UILabel!
     
+    var viewModel: FilterCellViewModel!
+    
     var isApply: Bool = false {
-        didSet{
-            if isApply {
-                applyImage.isHidden = false
-            } else {
-                applyImage.isHidden = true
-            }
+        didSet {
+            isSelected = isApply
+            self.viewModel.isApply = isApply
+            applyAction(state: viewModel.isApply)
+            self.reloadInputViews()
         }
     }
     
@@ -27,15 +28,25 @@ class FilterCell: UITableViewCell {
         filterTitle.font = UIFont.robotoFont19
         filterTitle.textColor = UIColor.defaultTextColor
         selectionStyle = .none
-        isApply = false
+        //isApply = false
     }
     
-    func fill(model: String){
-        filterTitle.text = model
+    func fill(model: FilterCellViewModel){
+        self.viewModel = model
+        filterTitle.text = model.title
+        isApply = model.isApply
     }
     
     override func prepareForReuse() {
         applyImage.image = nil
         filterTitle.text = ""
+    }
+    
+    func applyAction(state: Bool) {
+        if state {
+            applyImage.isHidden = false
+        } else {
+            applyImage.isHidden = true
+        }
     }
 }

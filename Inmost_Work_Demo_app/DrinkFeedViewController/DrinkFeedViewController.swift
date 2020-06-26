@@ -20,17 +20,25 @@ class DrinkFeedViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    private let viewModel = DrinkFeedViewModel(networkService: CoctailsListDataManager())
+    let viewModel = DrinkFeedViewModel(networkService: CoctailsListDataManager())
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        <#code#>
+    unowned var filterController: FilterViewController {
+        let vc =  UIStoryboard(name: "FilterViewController", bundle: nil)
+        .instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
+        vc.viewModel = FilterViewModel()
+        return vc
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
         configureTableView()
         bindToViewModel()
+        
+    }
+    
+    override func awakeFromNib() {
+        //self.reloadCoctailsData()
     }
     
     private func configureNavigationBar(){
@@ -61,7 +69,7 @@ class DrinkFeedViewController: UIViewController {
     
         tableView?.register(UINib(nibName: "DrinkFeedViewCell", bundle: nil),
         forCellReuseIdentifier: "DrinkFeedCellViewModel")
-        
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
         //NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .reloadTableView, object: nil)
@@ -78,14 +86,16 @@ class DrinkFeedViewController: UIViewController {
     }
     
     private func viewModelDidUpdate() {
+        
         self.tableView.reloadData()
     }
     
     private func viewModelDidError(error: NetworkError) {
-        UIAlertView(title: "Error", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK").show()
+       //UIAlertView(title: "Error", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK").show()
     }
     
-    private func reloadCoctailsData() {
+    func reloadCoctailsData() {
+//        print("FILTERS \( self.filterController.viewModel.selectedFilters.count)")
         self.viewModel.reloadData()
     }
     
@@ -99,7 +109,6 @@ extension DrinkFeedViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DrinkFeedCellViewModel") as? DrinkFeedViewCell else { return UITableViewCell() }
-        print("table view sections is \(viewModel.dataSource[indexPath.row].title)")
         let feed = viewModel.dataSource[indexPath.row]
         cell.fill(model: DrinkFeedCellViewModel(model: feed))
         return cell
@@ -118,8 +127,6 @@ extension DrinkFeedViewController : UITableViewDelegate, UITableViewDataSource {
 //    }
     
     @objc func filterViewController(sender: UIBarButtonItem) {
-        let st = UIStoryboard(name: "FilterViewController", bundle: nil)
-        let controller = st.instantiateViewController(withIdentifier: "FilterViewController")
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.pushViewController(self.filterController, animated: true)
     }
 }

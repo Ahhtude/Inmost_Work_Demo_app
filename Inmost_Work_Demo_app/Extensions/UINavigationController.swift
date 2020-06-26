@@ -6,4 +6,10 @@
 //  Copyright © 2020 Sergey berdnik. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+extension UINavigationController {
+    var rootVC: UIViewController {
+        return viewControllers.first!
+    }
+}

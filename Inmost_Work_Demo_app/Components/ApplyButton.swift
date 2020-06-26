@@ -11,16 +11,23 @@ import UIKit
 
 class ApplyButton : UIButton {
     
+    var isApply: Bool = false {
+        didSet{
+            if isApply {
+                showSelection()
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.borderColor = UIColor.black.cgColor
         layer.cornerRadius = 6
         clipsToBounds = true
         backgroundColor = UIColor.black
-        
-        //titleLabel?.font = UIFont.robotoFont19
+        titleLabel?.font = UIFont.robotoFont19
         titleLabel?.textColor = .white
-        titleLabel?.text = "APPLYY"
+        titleLabel?.text = "APPLY"
     }
     
     func showSelection() {

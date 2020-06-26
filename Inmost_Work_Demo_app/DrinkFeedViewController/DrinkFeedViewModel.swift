@@ -18,6 +18,8 @@ class DrinkFeedViewModel {
     var didError: ((NetworkError) -> Void)?
     var didUpdate: ((DrinkFeedViewModel) -> Void)?
     
+    var coctailsFilter: Set<String> = []
+    
     
     init(networkService: CoctailsListDataManagerProtocol) {
         self.networkService = networkService
@@ -28,9 +30,24 @@ class DrinkFeedViewModel {
     }
     
     func reloadData() {
-           self.isUpdating = true
-           self.networkService.getCoctails(resultHandler: { [unowned self] coctails in
-                    self.dataSource = coctails
+        self.isUpdating = true
+        if !coctailsFilter.isEmpty {
+            for keys in coctailsFilter {
+                self.getData(keys)
+            }
+        } else {
+            self.getData(nil)
+        }
+       }
+    
+    private func getData(_ key: String?){
+        print("keys is \(key)")
+        self.networkService.getCoctails(filter: key ,resultHandler: {[unowned self] coctails in
+            self.dataSource = []
+            coctails.map({[unowned self] element in
+                self.dataSource.append(element)
+            })
+            //self.dataSource = coctails
                    self.isUpdating = false
                },
                    errorHandler: { [unowned self] error in
@@ -38,7 +55,7 @@ class DrinkFeedViewModel {
                    self.isUpdating = false
                }
            )
-       }
+    }
     
     
     //Network request with NotificationCenter

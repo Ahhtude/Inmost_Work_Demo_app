@@ -14,7 +14,11 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var acceptButton: ApplyButton!
     
-    private var viewModel : FilterViewModel = .init()
+    var viewModel : FilterViewModel = .init()
+    
+    private unowned var mainVC: DrinkFeedViewController {
+        return navigationController!.rootVC as! DrinkFeedViewController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +42,10 @@ class FilterViewController: UIViewController {
         self.tableView.dataSource = self
         
         tableView?.register(UINib(nibName: "FilterCell", bundle: nil),
-        forCellReuseIdentifier: "FilterCell")
+        forCellReuseIdentifier: "FilterCellViewModel")
+    
     }
+    
 }
 
 extension FilterViewController : UITableViewDelegate, UITableViewDataSource {
@@ -49,9 +55,10 @@ extension FilterViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? FilterCell else {return}
-        cell.isApply = !cell.isApply
         
-        if cell.isApply {
+        cell.isApply = !cell.viewModel.isApply
+        
+        if cell.viewModel.isApply {
             viewModel.selectedFilters.insert(cell.filterTitle.text!)
         } else {
             viewModel.selectedFilters.remove(cell.filterTitle.text!)
@@ -59,14 +66,18 @@ extension FilterViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell") as? FilterCell else { return UITableViewCell() }
-        cell.fill(model: viewModel.dataSource[indexPath.row])
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCellViewModel") as? FilterCell else { return UITableViewCell() }
+        cell.fill(model: FilterCellViewModel(model: viewModel.dataSource[indexPath.row]))
         return cell
     }
     
     @objc func applyFilters (sender : UIButton) {
+        self.acceptButton.isApply = true
+        print("FILTERS \(viewModel.selectedFilters.count)")
+        mainVC.viewModel.coctailsFilter = viewModel.selectedFilters
+        mainVC.reloadCoctailsData()
+
         self.navigationController?.popViewController(animated: true)
-        self.view.removeFromSuperview()
-        self.removeFromParent()
+
     }
 }

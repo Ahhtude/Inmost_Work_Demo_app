@@ -10,6 +10,7 @@ import Foundation
 
 struct TableViewSection<Model> {
     var header: String?
+    
     var items: [Model]
     
     init(header: String? = nil, items: [Model]) {

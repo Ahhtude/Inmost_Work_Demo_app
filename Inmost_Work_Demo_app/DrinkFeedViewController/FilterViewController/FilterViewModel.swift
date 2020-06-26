@@ -35,8 +35,9 @@ class FilterViewModel {
         self.networkService.getFilters(resultHandler: {[unowned self] filters in
             filters.map({[unowned self] key in
                 self.dataSource.append(key.title)
+                self.selectedFilters.insert(key.title)
             })
-            
+    
             self.isUpdating = false
             }, errorHandler: { [unowned self] error in
                    self.didError?(error!)

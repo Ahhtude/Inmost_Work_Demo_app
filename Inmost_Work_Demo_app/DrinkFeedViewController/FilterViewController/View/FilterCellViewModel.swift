@@ -12,7 +12,7 @@ class FilterCellViewModel {
     
     var title: String
     
-    var isApply: Bool = false
+    var isApply: Bool = true
     
     init(model: String) {
         self.title = model

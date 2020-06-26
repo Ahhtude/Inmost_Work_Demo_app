@@ -15,7 +15,7 @@ class FilterCell: UITableViewCell {
     
     var viewModel: FilterCellViewModel!
     
-    var isApply: Bool = false {
+    var isApply: Bool = true {
         didSet {
             isSelected = isApply
             self.viewModel.isApply = isApply
